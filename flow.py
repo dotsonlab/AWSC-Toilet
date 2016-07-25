@@ -44,6 +44,10 @@ class Flow:
             #self.lastDetected = datetime.datetime.now().replace(microsecond = 0)
             self.totalPulses = self.totalPulses + 1
             self.eventPulses = self.eventPulses + 1
+            
+    def reset(self):
+        self.totalPulses = 0
+
 '''
             if self.longTimer != None:
                 self.longTimer.cancel()
@@ -59,10 +63,7 @@ class Flow:
             return True
         else:
             return False
-'''
-    def reset(self):
-        self.totalPulses = 0
-'''
+
     def log(self):
         day = datetime.date.today()
         time = self.currentTime.isoformat()
