@@ -1,13 +1,13 @@
 '''
 David Rodriguez
 
-Goal: Continuously looping while to perform valve actions at specified times, 
-introduce substance at a specific ratio based on flow data, recording 
+Goal: Continuously looping while to perform valve actions at specified times,
+introduce substance at a specific ratio based on flow data, recording
 and saving flow data, and actuating a flush at a specified time.
 
 Inputs: A schedule of events based on entered times.
 
-Outputs: Sequence of events to a screen as they happen. 
+Outputs: Sequence of events to a screen as they happen.
 daily flow rate data
 '''
 #logic testing Below is the functional portion
@@ -29,7 +29,7 @@ class Flow:
     GPIO.output("P8_7", GPIO.LOW) #set stepper motor direction
     GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
-    currentTime = datetime.datetime()
+    currentTime = datetime.datetime().now()
     lastDetected = datetime.datetime()
     shortTimer = threading.Timer()
     longTimer = threading.Timer()
@@ -37,7 +37,7 @@ class Flow:
     totalPulses = 0
     steps = 28250
     speed = .001
-    
+
     def checkFlow(self):
         self.currentTime = datetime.datetime.now().replace(microsecond = 0)
         if GPIO.event_detected("P9_41"):
@@ -58,7 +58,7 @@ class Flow:
             return True
         else:
             return False
-            
+
     def reset():
         self.totalPulses = 0
 
@@ -85,7 +85,7 @@ class Flow:
 
     def enableStepper(self):
         GPIO.output("P8_11", GPIO.LOW)
-            
+
     def disableStepper(self):
         GPIO.output("P8_11", GPIO.HIGH)
 
@@ -127,4 +127,3 @@ class Flow:
         time.sleep(1)
         GPIO.output("P8_18", GPIO.LOW) #pwm on
         self.disableStepper()
-        
