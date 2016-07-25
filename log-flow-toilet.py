@@ -48,8 +48,8 @@ while True:
         time.sleep(1)
         start_counter = 0
         flow = count * 60.0 / 2200.0
-	if flow >= 4.1: #set maximum flow to restrict miscalculation associated with electrical noise acceptable due to pd pump
-		flow = 4.1
+#	if flow >= 4.1: #set maximum flow to restrict miscalculation associated with electrical noise acceptable due to pd pump
+#		flow = 4.1
         stepf = flow * 0.02 * 1000 / 60 / 2.36 * 200
         totalflow = totalflow + flow/60
         print '%s%f\t%s%f' % ( "Flow (LPM): ",flow,"Total Flow (L):",totalflow) #comment out if debugging complete
