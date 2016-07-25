@@ -106,7 +106,7 @@ while True:
                     workingSchedule.displaySchedule()
                     item = -1
                     
-                    while item == -1
+                    while item == -1:
                         toRemove = raw_input(("\nSelect an event to remove.\n"))
                         if toRemove.isdigit()
                             item = int(toRemove) - 1
