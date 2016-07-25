@@ -29,8 +29,8 @@ class Flow:
     GPIO.output("P8_7", GPIO.LOW) #set stepper motor direction
     GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
-    currentTime = datetime()
-    lastDetected = datetime()
+    currentTime = datetime.datetime.now()
+    lastDetected = datetime.datetime.now()
     shortTimer = None
     longTimer = None
     eventPulses = 0
