@@ -30,7 +30,7 @@ class Schedule:
         print "6: Return to main menu"
         
     def addEvent(self):
-        r = re.complie('[0-2]\d:[0-5]\d:[0-5]\d')
+        r = re.compile('[0-2]\d:[0-5]\d:[0-5]\d')
         matches = False
         while matches == False:
             enteredTime = raw_input("Please enter the time you want the event to "
