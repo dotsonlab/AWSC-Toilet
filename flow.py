@@ -30,7 +30,7 @@ class Flow:
     GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
     currentTime = datetime.datetime.now()
-    lastDetected = datetime.datetime()
+    lastDetected = datetime.datetime.now()
     shortTimer = threading.Timer()
     longTimer = threading.Timer()
     eventPulses = 0
