@@ -25,7 +25,6 @@ class Flow:
     GPIO.setup("P8_16", GPIO.OUT) #Direction for actuator 2
     GPIO.setup("P8_18", GPIO.OUT) #PWM for actuator 2
     GPIO.output("P8_7", GPIO.LOW) #set stepper motor direction
-    GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
 
     def enableStepper(self):
