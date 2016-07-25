@@ -53,7 +53,7 @@ while True:
         stepf = flow * 0.02 * 1000 / 60 / 2.36 * 200
         totalflow = totalflow + flow/60
         print '%s%f\t%s%f' % ( "Flow (LPM): ",flow,"Total Flow (L):",totalflow) #comment out if debugging complete
-	viscount=+1
+	viscount=viscount+1
 	print viscount
 
         if stepf >= 60:
