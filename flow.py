@@ -52,14 +52,14 @@ class Flow:
                 self.shortTimer.cancel()
                 self.log()
 
-    def isFlowing():
+    def isFlowing(self):
         timeDelta = self.currentTime - self.lastDetected
         if timeDelta.second < 5:
             return True
         else:
             return False
 
-    def reset():
+    def reset(self):
         self.totalPulses = 0
 
     def log(self):
