@@ -47,7 +47,7 @@ class Flow:
             if self.longTimer != None:
                 self.longTimer.cancel()
                 self.log()
-        elif isFlowing() == False:
+        elif self.isFlowing() == False:
             if self.shortTimer != None:
                 self.shortTimer.cancel()
                 self.log()
@@ -74,7 +74,7 @@ class Flow:
         target = open(filename, 'a')
         target.write("%s, %f, %f\n" % (time, LPM, liters))
         target.close()
-        if isFlowing() == True:
+        if self.isFlowing() == True:
            self.shortTimer = threading.Timer(1.0, self.log).start()
         else:
            self.longTimer = threading.Timer(900.0, self.log).start()
