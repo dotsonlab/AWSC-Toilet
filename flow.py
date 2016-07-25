@@ -53,8 +53,8 @@ class Flow:
                 self.log()
 
     def isFlowing(self):
-        timeDelta = self.currentTime - self.lastDetected
-        if timeDelta.second < 5:
+        datetime.timeDelta = self.currentTime - self.lastDetected
+        if timeDelta.total_seconds() < 5:
             return True
         else:
             return False
