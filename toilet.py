@@ -28,6 +28,8 @@ while True:
     print "\n1: Run Schedule"
     print "2: Manage Schedules"
     print "3: Exit"
+    option = 0
+    
     while option == 0:
         input = raw_input("\nPlease select an option.\n")
         if input.isdigit():
