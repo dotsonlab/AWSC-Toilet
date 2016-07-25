@@ -30,13 +30,8 @@ class Flow:
     GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
     currentTime = datetime.datetime.now()
-    #lastDetected = datetime.datetime.now()
-    #shortTimer = None
-    #longTimer = None
     eventPulses = 0
     totalPulses = 0
-    #steps = 28250
-    #speed = .001
 
     def checkFlow(self):
         self.currentTime = datetime.datetime.now().replace(microsecond = 0)
@@ -47,40 +42,6 @@ class Flow:
             
     def reset(self):
         self.totalPulses = 0
-
-'''
-            if self.longTimer != None:
-                self.longTimer.cancel()
-                self.log()
-        elif self.isFlowing() == False:
-            if self.shortTimer != None:
-                self.shortTimer.cancel()
-                self.log()
-
-    def isFlowing(self):
-        timeDelta = self.currentTime - self.lastDetected
-        if timeDelta.total_seconds() < 5:
-            return True
-        else:
-            return False
-
-    def log(self):
-        day = datetime.date.today()
-        time = self.currentTime.isoformat()
-        liters = self.computeLiters(self.totalPulses)
-        LPM = self.computeLiters(self.eventPulses)
-        LPM = LPM*12
-        self.eventPulses = 0
-
-        filename = "%s_Toilet.csv" % day.isoformat()
-        target = open(filename, 'a')
-        target.write("%s, %f, %f\n" % (time, LPM, liters))
-        target.close()
-        if self.isFlowing() == True:
-           self.shortTimer = threading.Timer(1.0, self.log).start()
-        else:
-           self.longTimer = threading.Timer(900.0, self.log).start()
-'''
 
     def computeLiters(self, numberOfPulses):
         self.liters = numberOfPulses / 2200.0
