@@ -13,7 +13,6 @@ daily flow rate data
 #logic testing Below is the functional portion
 import datetime
 import time
-import threading
 import Adafruit_BBIO.GPIO as GPIO
 import Adafruit_BBIO.PWM as PWM
 
@@ -25,27 +24,9 @@ class Flow:
     GPIO.setup("P8_17", GPIO.OUT) #PWM for actuator 1
     GPIO.setup("P8_16", GPIO.OUT) #Direction for actuator 2
     GPIO.setup("P8_18", GPIO.OUT) #PWM for actuator 2
-    GPIO.setup("P9_41", GPIO.IN) #flow sensor
     GPIO.output("P8_7", GPIO.LOW) #set stepper motor direction
     GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
-    currentTime = datetime.datetime.now()
-    eventPulses = 0
-    totalPulses = 0
-
-    def checkFlow(self):
-        self.currentTime = datetime.datetime.now().replace(microsecond = 0)
-        if GPIO.event_detected("P9_41"):
-            #self.lastDetected = datetime.datetime.now().replace(microsecond = 0)
-            self.totalPulses = self.totalPulses + 1
-            self.eventPulses = self.eventPulses + 1
-            
-    def reset(self):
-        self.totalPulses = 0
-
-    def computeLiters(self, numberOfPulses):
-        self.liters = numberOfPulses / 2200.0
-        return self.liters
 
     def enableStepper(self):
         GPIO.output("P8_11", GPIO.LOW)
