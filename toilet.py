@@ -1,13 +1,13 @@
 '''
 David Rodriguez
 
-Goal: Continuously looping while to perform valve actions at specified times, 
-introduce substance at a specific ratio based on flow data, recording 
+Goal: Continuously looping while to perform valve actions at specified times,
+introduce substance at a specific ratio based on flow data, recording
 and saving flow data, and actuating a flush at a specified time.
 
 Inputs: A schedule of events based on entered times.
 
-Outputs: Sequence of events to a screen as they happen. 
+Outputs: Sequence of events to a screen as they happen.
 daily flow rate data
 '''
 from toiletschedule import Schedule
@@ -30,16 +30,16 @@ while True:
     print "3: Exit"
     option = int(raw_input("\nPlease select an option.\n"))
 
-    #run schedule: set midnight time, set flow enable to high (off). 
+    #run schedule: set midnight time, set flow enable to high (off).
     #Import a schedule or sort and use current schedule
     if option == 1:
         currentTime = datetime.datetime.time(datetime.datetime.now()).replace(microsecond = 0)
         midnight = currentTime.replace(hour = 23, minute = 59, second = 59)
         meter.currentTime = datetime.datetime.now().replace(microsecond = 0)
         meter.log()# start logging
-        
+
         print "\n\nCtrl + Pause/Break at any time to stop operation.\n"
-        
+
         if not workingSchedule.eventCount:#if no objects ask for a schedule to import
             workingSchedule.importSchedule()
             workingSchedule.displaySchedule()
@@ -47,11 +47,11 @@ while True:
             workingSchedule.eventList.sort(key = lambda event: event.startTime)
             workingSchedule.displaySchedule()
         print ""
-        
+
         nextEvent = workingSchedule.eventList[0]#grab first event
         nextStartTime = nextEvent.startTime
         print nextEvent.displayEvent() + " loaded."
-        
+
         while True:# infinite loop
             currentTime = datetime.datetime.time(datetime.datetime.now())
             currentTime = currentTime.replace(microsecond = 0)#current time ignore microseconds
@@ -92,7 +92,7 @@ while True:
                 input = raw_input("\nPlease select an option.\n")
                 if input.isdigit():
                     selection = int(input)
-                    
+
             if selection == 1:
                 workingSchedule.importSchedule()
                 workingSchedule.displaySchedule()
@@ -105,12 +105,12 @@ while True:
                     print ""
                     workingSchedule.displaySchedule()
                     item = -1
-                    
+
                     while item == -1:
                         toRemove = raw_input(("\nSelect an event to remove.\n"))
-                        if toRemove.isdigit()
+                        if toRemove.isdigit():
                             item = int(toRemove) - 1
-                    
+
                     workingSchedule.eventList.pop(item)
                     workingSchedule.eventCount -= 1
             elif selection == 4:
