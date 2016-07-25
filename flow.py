@@ -15,11 +15,11 @@ import datetime
 import time
 import threading
 import Adafruit_BBIO.GPIO as GPIO
-
+import Adafruit_BBIO.PWM as PWM
 
 class Flow:
     GPIO.setup("P8_7", GPIO.OUT) #stepper direction
-    GPIO.setup("P8_9", GPIO.OUT) #step
+    GPIO.setup("P9_16", GPIO.OUT) #step
     GPIO.setup("P8_11", GPIO.OUT) #(0: enabled, 1: disabled)
     GPIO.setup("P8_15", GPIO.OUT) #Direction for actuator 1
     GPIO.setup("P8_17", GPIO.OUT) #PWM for actuator 1
@@ -30,20 +30,21 @@ class Flow:
     GPIO.add_event_detect("P9_41", GPIO.RISING)
     tag = ""
     currentTime = datetime.datetime.now()
-    lastDetected = datetime.datetime.now()
-    shortTimer = None
-    longTimer = None
+    #lastDetected = datetime.datetime.now()
+    #shortTimer = None
+    #longTimer = None
     eventPulses = 0
     totalPulses = 0
-    steps = 28250
-    speed = .001
+    #steps = 28250
+    #speed = .001
 
     def checkFlow(self):
         self.currentTime = datetime.datetime.now().replace(microsecond = 0)
         if GPIO.event_detected("P9_41"):
-            self.lastDetected = datetime.datetime.now().replace(microsecond = 0)
+            #self.lastDetected = datetime.datetime.now().replace(microsecond = 0)
             self.totalPulses = self.totalPulses + 1
             self.eventPulses = self.eventPulses + 1
+'''
             if self.longTimer != None:
                 self.longTimer.cancel()
                 self.log()
@@ -58,10 +59,10 @@ class Flow:
             return True
         else:
             return False
-
+'''
     def reset(self):
         self.totalPulses = 0
-
+'''
     def log(self):
         day = datetime.date.today()
         time = self.currentTime.isoformat()
@@ -78,7 +79,7 @@ class Flow:
            self.shortTimer = threading.Timer(1.0, self.log).start()
         else:
            self.longTimer = threading.Timer(900.0, self.log).start()
-
+'''
     def computeLiters(self, numberOfPulses):
         self.liters = numberOfPulses / 2200.0
         return self.liters
@@ -89,14 +90,14 @@ class Flow:
     def disableStepper(self):
         GPIO.output("P8_11", GPIO.HIGH)
 
-    def triggerStepper(self, numberOfTimes):
-        time.sleep(.5)
-        for i in range(0, numberOfTimes):
-            GPIO.output("P8_9", GPIO.HIGH)
-            print "Step: %d" % i
-            time.sleep(self.speed)
-            GPIO.output("P8_9", GPIO.LOW)
-            time.sleep(self.speed)
+    def triggerStepper(self):
+        time.sleep(0.5)
+        PWM.start("P9_16", 25, 100, 1)
+        time.sleep(2)
+        PWM.set_frequency("P9_16", 250)
+        time.sleep(90)
+        PWM.stop("P9_16")
+        PWM.cleanup()
 
     def toiletTrigger(self, flushType):
         if flushType == "Full":
@@ -107,7 +108,7 @@ class Flow:
     def toiletUrine(self):
         print "Toilet Urine Triggered"
         self.enableStepper()
-        self.triggerStepper(self.steps)
+        self.triggerStepper()
         GPIO.output("P8_17", GPIO.HIGH) #pwm on
         GPIO.output("P8_15", GPIO.LOW)  #extend actuator
         time.sleep(.65)
@@ -119,7 +120,7 @@ class Flow:
     def toiletFull(self):
         print "Toilet Full Triggered"
         self.enableStepper()
-        self.triggerStepper(self.steps)
+        self.triggerStepper()
         GPIO.output("P8_18", GPIO.HIGH) #pwm on
         GPIO.output("P8_16", GPIO.LOW) #extend actuator
         time.sleep(.65)
