@@ -75,7 +75,7 @@ while True:
                 time.sleep(1)#hold a second so event isn't triggered multiple times
 
             elif currentTime == midnight:
-                    self.counter = 1
+                    counter = 1
                     nextEvent = workingSchedule.eventList[0]
                     nextStartTime = nextEvent.startTime
                     print "\nMidnight! Resetting.\n"
