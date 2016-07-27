@@ -29,12 +29,12 @@ while True:
     print "2: Manage Schedules"
     print "3: Exit"
     option = 0
-    
+
     while option == 0:
         input = raw_input("\nPlease select an option.\n")
         if input.isdigit():
             option = int(input)
-            
+
     #run schedule: set midnight time, set flow enable to high (off).
     #Import a schedule or sort and use current schedule
     if option == 1:
@@ -80,7 +80,7 @@ while True:
                     nextStartTime = nextEvent.startTime
                     print "\nMidnight! Resetting.\n"
                     workingSchedule.displaySchedule()
-                    meter.reset()
+                    #meter.reset()
                     time.sleep(1)
                     print nextEvent.displayEvent() + " loaded."
             else:
